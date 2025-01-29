@@ -40,8 +40,13 @@ option(BUILD_APPS                 "Build Open3D apps"                        OFF
 option(BUILD_UNIT_TESTS           "Build Open3D unit tests"                  OFF)
 option(BUILD_BENCHMARKS           "Build the micro benchmarks"               OFF)
 option(BUILD_PYTHON_MODULE        "Build the python module"                  ON )
-option(BUILD_CUDA_MODULE          "Build the CUDA module"                    OFF)
-option(BUILD_WITH_CUDA_STATIC     "Build with static CUDA libraries"         OFF)
+if(LINUX)
+	option(BUILD_CUDA_MODULE          "Build the CUDA module"                    ON)
+	option(BUILD_WITH_CUDA_STATIC     "Build with static CUDA libraries"         ON)
+else()
+	option(BUILD_CUDA_MODULE          "Build the CUDA module"                    OFF)
+	option(BUILD_WITH_CUDA_STATIC     "Build with static CUDA libraries"         OFF)
+endif()
 option(BUILD_COMMON_CUDA_ARCHS    "Build for common CUDA GPUs (for release)" OFF)
 if (WIN32)   # Causes CUDA runtime error on Windows (See issue #6555)
     option(ENABLE_CACHED_CUDA_MANAGER "Enable cached CUDA memory manager"    OFF)
@@ -135,7 +140,11 @@ option(PREFER_OSX_HOMEBREW        "Prefer Homebrew libs over frameworks"     ON 
 option(WITH_MINIZIP               "Enable MiniZIP"                           OFF)
 
 # Sensor options
+if(LINUX)
+option(BUILD_LIBREALSENSE         "Build support for Intel RealSense camera" ON)
+else()
 option(BUILD_LIBREALSENSE         "Build support for Intel RealSense camera" OFF)
+endif()
 option(USE_SYSTEM_LIBREALSENSE    "Use system pre-installed librealsense"    OFF)
 option(BUILD_AZURE_KINECT         "Build support for Azure Kinect sensor"    OFF)
 
